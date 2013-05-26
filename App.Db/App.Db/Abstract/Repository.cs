@@ -24,13 +24,7 @@ namespace App.Db.Abstract
             this.Contexto = Contexto;
             this.Entity = this.Contexto.Set<T>();
         }
-        #endregion Constructs
-        #region Insert
-        public void Insert(T Entity)
-        {
-            this.Entity.Add(Entity);
-        }
-        #endregion Insert
+        #endregion Constructs        
         #region Add
         public void Add(T Entity)
         {
@@ -39,9 +33,27 @@ namespace App.Db.Abstract
         }
         public void Add(IList<T> Entities)
         {
-            foreach (T Entity in Entities)
+            if (Entities != null && Entities.Count() > 0)
             {
-                this.Add(Entity);
+                foreach (T Entity in Entities)
+                {
+                    this.Entity.Add(Entity);
+                }
+                this.Save();
+            }
+        }
+        public void Insert(T Entity)
+        {
+            this.Entity.Add(Entity);
+        }
+        public void Insert(IList<T> Entities)
+        {
+            if (Entities != null && Entities.Count() > 0)
+            {
+                foreach (T Entity in Entities)
+                {
+                    this.Entity.Add(Entity);
+                }               
             }
         }
         #endregion Add
@@ -50,6 +62,10 @@ namespace App.Db.Abstract
         {            
             this.Contexto.Entry<T>(Entity).State = System.Data.EntityState.Modified;
             this.Save();
+        }
+        public void Update(T Entity)
+        {
+            this.Contexto.Entry<T>(Entity).State = System.Data.EntityState.Modified;
         }
         #endregion Edit
         #region Delete
@@ -73,18 +89,26 @@ namespace App.Db.Abstract
             }
             return _delete;
         }
-        public void DeleteAll(IList<T> Entities)
+        #endregion Delete
+        #region Remove
+        public void Remove(T Entity)
         {
-            if (Entities != null)
+            if (Entity != null)
+            {
+                this.Entity.Remove(Entity);                
+            }            
+        }
+        public void Remove(IList<T> Entities)
+        {
+            if (Entities != null && Entities.Count() > 0)
             {
                 foreach (T Entity in Entities)
                 {
                     this.Entity.Remove(Entity);                    
-                }
-                this.Save();
+                }                
             }
         }
-        #endregion Delete
+        #endregion Remove
         #region Find
         public T Find(params object[] Keys)
         {
@@ -92,7 +116,7 @@ namespace App.Db.Abstract
         }
         public T Single(System.Linq.Expressions.Expression<Func<T, bool>> Where)
         {
-            return this.Entity.Single<T>(Where);
+            return this.Entity.SingleOrDefault<T>(Where);
         }
         #endregion Find
         #region Query
@@ -125,6 +149,6 @@ namespace App.Db.Abstract
             this.Contexto = null;
             GC.SuppressFinalize(this);
         }
-        #endregion Dispose
+        #endregion Dispose        
     }
 }

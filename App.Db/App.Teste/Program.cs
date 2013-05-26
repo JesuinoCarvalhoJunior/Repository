@@ -41,17 +41,24 @@ namespace App.Teste
                 Repository<Pessoa> reppessoa = new RepositoryPessoa(ctx);
                 Repository<Telefone> reptelefone = new RepositoryTelefone(ctx);
 
-                Pessoa p1 = new Pessoa();
-                p1.Nome = "Fúlvio Cezar Canducci Dias";
+                //Pessoa p1 = new Pessoa();
+                //p1.Nome = "Fúlvio Cezar Canducci Dias";
 
-                Telefone t1 = new Telefone();
-                t1.Pessoa = p1;
-                t1.CodigoPessoa = p1.Codigo;
-                t1.Ddd = "018";
-                t1.Numero = "3269-5189";
+                //Telefone t1 = new Telefone();
+                //t1.Pessoa = p1;
+                //t1.CodigoPessoa = p1.Codigo;
+                //t1.Ddd = "018";
+                //t1.Numero = "3269-5189";
 
-                reppessoa.Add(p1);
-                reptelefone.Add(t1);
+                ////reppessoa.Add(p1);
+                //reptelefone.Add(t1);
+
+                //IList<Telefone> tels = reppessoa.Find(12).Telefone.ToList();
+                //reptelefone.DeleteAll(tels);
+
+                //Pessoa p1 = reppessoa.Find(11);
+                //reptelefone.DeleteAll(reppessoa.Find(11).Telefone.ToList<Telefone>());
+                reppessoa.Delete(11);
                 
             }
         }
