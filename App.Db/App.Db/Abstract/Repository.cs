@@ -25,6 +25,7 @@ namespace App.Db.Abstract
             this.Entity = this.Contexto.Set<T>();
         }
         #endregion Constructs        
+        #region AutoCommit
         #region Add
         public void Add(T Entity)
         {
@@ -41,7 +42,53 @@ namespace App.Db.Abstract
                 }
                 this.Save();
             }
+        }        
+        #endregion Add
+        #region Edit
+        public void Edit(T Entity)
+        {            
+            this.Contexto.Entry<T>(Entity).State = System.Data.EntityState.Modified;
+            this.Save();
         }
+        public void Edit(IList<T> Entities)
+        {
+            if (Entities != null && Entities.Count() > 0)
+            {
+                foreach (T Entity in Entities)
+                {
+                    this.Contexto.Entry<T>(Entity).State = System.Data.EntityState.Modified;                    
+                }
+                this.Save();
+            }
+        }        
+        #endregion Edit
+        #region Delete
+        public bool Delete(T Entity)
+        {
+            bool _delete = false;
+            if (Entity != null)
+            {
+                this.Entity.Remove(Entity);
+                this.Save();
+                _delete = true;
+            }
+            return _delete;
+        }
+        public void Delete(IList<T> Entities)
+        {            
+            if (Entities != null && Entities.Count() > 0)
+            {
+                foreach (T Entity in Entities)
+                {
+                    this.Contexto.Entry<T>(Entity).State = System.Data.EntityState.Deleted;
+                }
+                this.Save();
+            }            
+        }
+        #endregion Delete
+        #endregion AutoCommit
+        #region ConfirmCommit
+        #region Insert
         public void Insert(T Entity)
         {
             this.Entity.Add(Entity);
@@ -53,43 +100,26 @@ namespace App.Db.Abstract
                 foreach (T Entity in Entities)
                 {
                     this.Entity.Add(Entity);
-                }               
+                }
             }
         }
-        #endregion Add
-        #region Edit
-        public void Edit(T Entity)
-        {            
-            this.Contexto.Entry<T>(Entity).State = System.Data.EntityState.Modified;
-            this.Save();
-        }
+        #endregion Insert
+        #region Update
         public void Update(T Entity)
         {
             this.Contexto.Entry<T>(Entity).State = System.Data.EntityState.Modified;
         }
-        #endregion Edit
-        #region Delete
-        public bool Delete(T Entity)
+        public void Update(IList<T> Entities)
         {
-            bool _delete = false;
-            if (Entity != null)
+            if (Entities != null && Entities.Count() > 0)
             {
-                this.Entity.Remove(Entity);
-                this.Save();
+                foreach (T Entity in Entities)
+                {
+                    this.Contexto.Entry<T>(Entity).State = System.Data.EntityState.Modified;
+                }
             }
-            return _delete;
         }
-        public bool Delete(params object[] Keys)
-        {
-            bool _delete = false;
-            T Entity = this.Find(Keys);
-            if (Entity != null)
-            {
-                _delete = this.Delete(Entity);                                
-            }
-            return _delete;
-        }
-        #endregion Delete
+        #endregion Update
         #region Remove
         public void Remove(T Entity)
         {
@@ -109,16 +139,19 @@ namespace App.Db.Abstract
             }
         }
         #endregion Remove
+        #endregion ConfirmCommit
         #region Find
         public T Find(params object[] Keys)
         {
             return this.Entity.Find(Keys);
-        }
+        }        
+        #endregion Find
+        #region Single
         public T Single(System.Linq.Expressions.Expression<Func<T, bool>> Where)
         {
             return this.Entity.SingleOrDefault<T>(Where);
         }
-        #endregion Find
+        #endregion Single
         #region Query
         public IQueryable<T> Query()
         {

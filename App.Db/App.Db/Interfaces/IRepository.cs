@@ -13,12 +13,14 @@ namespace App.Db.Interfaces
         DbSet<T> Entity { get; }
         void Add(T Entity);
         void Add(IList<T> Entities);
-        void Insert(T Entity);
-        void Insert(IList<T> Entities);
         void Edit(T Entity);
+        void Edit(IList<T> Entities);
+        bool Delete(T Entity);
+        void Delete(IList<T> Entities);   
+        void Insert(T Entity);
+        void Insert(IList<T> Entities);        
         void Update(T Entity);
-        bool Delete(T Entity);        
-        bool Delete(params object[] Keys);        
+        void Update(IList<T> Entities);             
         void Remove(T Entity);
         void Remove(IList<T> Entities);
         T Find(params object[] Keys);

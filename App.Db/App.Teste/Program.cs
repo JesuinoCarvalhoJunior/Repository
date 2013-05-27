@@ -12,54 +12,164 @@ namespace App.Teste
     {
         static void Main(string[] args)
         {
-            //using (Repository<Pessoa> reppessoa = new RepositoryPessoa())
-            //{
-            //    //reppessoa.Insert(new Pessoa() { Nome = "Insert" });
-            //    //reppessoa.Save();
-            //    //IList<Telefone> Telefones = reppessoa.Find(6).Telefone.ToList<Telefone>();
-            //    //using (Repository<Telefone> reptelefone = new RepositoryTelefone(reppessoa.Contexto))
-            //    //{
-            //    //    reptelefone.DeleteAll(Telefones);
-            //    //}
-            //    //Pessoa rp6 = reppessoa.Find(6);
-            //    //rp6.Nome = "Fúlvio C. C. Dias";
-                
-
-            //    //Pessoa rp7 = reppessoa.Find(7);
-            //    //rp7.Nome = "Hugo L. C. Dias";
-
-            //    Pessoa rp8 = new Pessoa();
-            //    rp8.Codigo = 8;
-            //    rp8.Nome = "Cezario C. Dias";
-
-            //    reppessoa.Edit(rp8);
-            //}
-            //System.Console.ReadKey();
-
-            using (AppEntities ctx = new AppEntities())
+            //Teste AutoCommit
+            //Processo Add
+            using (Repository<Pessoa> RepPessoa = new RepositoryPessoa())
             {
-                Repository<Pessoa> reppessoa = new RepositoryPessoa(ctx);
-                Repository<Telefone> reptelefone = new RepositoryTelefone(ctx);
-
+                //Add
                 //Pessoa p1 = new Pessoa();
-                //p1.Nome = "Fúlvio Cezar Canducci Dias";
+                //p1.Nome = "Aluno 1";
+                //RepPessoa.Add(p1);
 
-                //Telefone t1 = new Telefone();
-                //t1.Pessoa = p1;
-                //t1.CodigoPessoa = p1.Codigo;
-                //t1.Ddd = "018";
-                //t1.Numero = "3269-5189";
+                //AddList
+                //Pessoa p2 = new Pessoa();
+                //p2.Nome = "Aluno 2";
+                //Pessoa p3 = new Pessoa();
+                //p3.Nome = "Aluno 3";
+                //IList<Pessoa> ps = new List<Pessoa>();
+                //ps.Add(p2);
+                //ps.Add(p3);
+                //RepPessoa.Add(ps);
 
-                ////reppessoa.Add(p1);
-                //reptelefone.Add(t1);
+                //Edit
+                //Pessoa p1e = RepPessoa.Find(13);
+                //if (p1e != null)
+                //{
+                //    p1e.Nome = "Aluno 1 - Modo Edição";
+                //    RepPessoa.Edit(p1e);
+                //}
+                //EditList
+                //Pessoa p2e = RepPessoa.Find(14);                
+                //Pessoa p3e = RepPessoa.Find(15);
+                //IList<Pessoa> pse = new List<Pessoa>();
+                //if (p2e != null)
+                //{
+                //    p2e.Nome = "Aluno 2 - Modo Edição";
+                //    pse.Add(p2e);
+                //}
+                //if (p3e != null)
+                //{
+                //    p3e.Nome = "Aluno 3 - Modo Edição";
+                //    pse.Add(p3e);
+                //}
+                //RepPessoa.Edit(pse);
 
-                //IList<Telefone> tels = reppessoa.Find(12).Telefone.ToList();
-                //reptelefone.DeleteAll(tels);
+                //Delete
+                //Pessoa p1x = RepPessoa.Find(13);
+                //if (p1x != null)
+                //{                    
+                //    RepPessoa.Delete(p1x);
+                //}
+                ////DeleteList
+                //Pessoa p2x = RepPessoa.Find(14);
+                //Pessoa p3x = RepPessoa.Find(15);
+                //IList<Pessoa> psx = new List<Pessoa>();
+                //if (p2x != null)
+                //{                 
+                //    psx.Add(p2x);
+                //}
+                //if (p3x != null)
+                //{                    
+                //    psx.Add(p3x);
+                //}
+                //RepPessoa.Delete(psx);
 
-                //Pessoa p1 = reppessoa.Find(11);
-                //reptelefone.DeleteAll(reppessoa.Find(11).Telefone.ToList<Telefone>());
-                reppessoa.Delete(11);
+                //Insert
+                //Pessoa pins1 = new Pessoa();
+                //pins1.Nome = "Insert 1";
+                //RepPessoa.Insert(pins1);
+                //RepPessoa.Save();
+
+                //Pessoa pins2 = new Pessoa();
+                //pins2.Nome = "Insert 2";
+                //Pessoa pins3 = new Pessoa();
+                //pins3.Nome = "Insert 3";
+                //RepPessoa.Insert(new List<Pessoa>()
+                //{
+                //    pins2, pins3
+                //});
+                //RepPessoa.Save();
+
+                //Update
+                //Pessoa pup1 = RepPessoa.Find(16);
+                //if (pup1 != null)
+                //{
+                //    pup1.Nome = "Insert 1.1, modo Update";
+                //}
+                //RepPessoa.Edit(pup1);
+                //RepPessoa.Save();
+
+                //UpdateList
+                //Pessoa pup2 = RepPessoa.Find(17);
+                //if (pup2 != null)
+                //{
+                //    pup2.Nome = "Insert 2, modo Update";
+                //}
+                //Pessoa pup3 = RepPessoa.Find(18);
+                //if (pup3 != null)
+                //{
+                //    pup3.Nome = "Insert 3, modo Update";
+                //}
+                //RepPessoa.Update(new List<Pessoa>()
+                //{
+                //    pup2, pup3
+                //});
+                //RepPessoa.Save();
                 
+                //Remove
+                //Pessoa pur1 = RepPessoa.Find(16);
+                //if (pur1 != null)
+                //{
+                //    RepPessoa.Remove(pur1);
+                //}                
+                //RepPessoa.Save();
+
+                //RemoveList
+                //Pessoa pur2 = RepPessoa.Find(17);               
+                //Pessoa pur3 = RepPessoa.Find(18);                
+                //RepPessoa.Remove(new List<Pessoa>()
+                //{
+                //    pur2, pur3
+                //});
+                //RepPessoa.Save();
+
+
+                //Add With Telephone
+                //Pessoa pt1 = new Pessoa();
+                //pt1.Nome = "Pessoa Telefone 1";
+                //pt1.Telefone.Add(new Telefone() { Ddd = "999", Numero = "0999-9999" });
+                //pt1.Telefone.Add(new Telefone() { Ddd = "888", Numero = "0888-8888" });                
+                //RepPessoa.Add(pt1);
+
+
+                //Pessoa pt11 = new Pessoa();
+                //pt11.Nome = "Pessoa Telefone 11";
+                //pt11.Telefone.Add(new Telefone() { Ddd = "777", Numero = "0777-7777" });
+                //pt11.Telefone.Add(new Telefone() { Ddd = "666", Numero = "0666-6666" });
+                //RepPessoa.Insert(pt11);
+                //RepPessoa.Save();
+
+                //Update With Telephone
+                //Pessoa pu1 = RepPessoa.Find(21);
+                //IList<Telefone> tu1 = pu1.Telefone.ToList<Telefone>();
+                //pu1.Nome = "Pessoa Telefone 1, Update 1";
+                //for (int i = 0; i < tu1.Count(); i++)
+                //{
+                //    tu1[i].Ddd = "000";
+                //    tu1[i].Numero = string.Format("{0}000-0001", i);
+                //}
+                ////RepPessoa.Update(pu1);
+                //RepPessoa.Save();
+
+                //Remove With Telephone
+                //Pessoa pr1 = RepPessoa.Find(22);
+                //IList<Telefone> tr1 = pr1.Telefone.ToList<Telefone>();
+                //Repository<Telefone> RepTelefone = new RepositoryTelefone(RepPessoa.Contexto);
+                //RepTelefone.Remove(tr1);
+                //RepTelefone.Save();
+
+                //RepPessoa.Remove(pr1);
+                //RepPessoa.Save();
             }
         }
     }
