@@ -15,10 +15,10 @@ namespace App.Teste
             //Teste AutoCommit
             //Processo Add
             using (Repository<Pessoa> RepPessoa = new RepositoryPessoa())
-            {
+            {            
                 //Add
                 //Pessoa p1 = new Pessoa();
-                //p1.Nome = "Aluno 1";
+                //p1.Nome = "Pessoa 1";
                 //RepPessoa.Add(p1);
 
                 //AddList

@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="Diagram\DiagramRepository.cd" />
     <None Include="packages.config" />
     <None Include="Persistencia\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
